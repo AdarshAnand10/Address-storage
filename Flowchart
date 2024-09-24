@@ -1,0 +1,14 @@
+    A[Start] --> B[Receive POST request to /api/register]
+    B --> C[Extract user data from request body]
+    C --> D[Create new User in database]
+    D --> E{User creation successful?}
+    E -->|Yes| F[Create new Address in database]
+    E -->|No| M[Return error response]
+    F --> G{Address creation successful?}
+    G -->|Yes| H[Link Address to User]
+    G -->|No| N[Delete created User]
+    N --> M
+    H --> I[Prepare success response]
+    I --> J[Send response to client]
+    J --> K[End]
+    M --> K
