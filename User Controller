@@ -1,0 +1,22 @@
+const { User, Address } = require('../models');
+
+exports.registerUser = async (req, res) => {
+  try {
+    const { name, street, city, state, zipCode } = req.body;
+
+    const user = await User.create({ name });
+
+    await Address.create({
+      street,
+      city,
+      state,
+      zipCode,
+      UserId: user.id
+    });
+
+    res.status(201).json({ message: 'User registered successfully', userId: user.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error registering user' });
+  }
+};
