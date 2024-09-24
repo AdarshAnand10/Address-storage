@@ -1,0 +1,38 @@
+const { Sequelize, DataTypes } = require('sequelize');
+
+const sequelize = new Sequelize('postgres://username:password@localhost:5432/user_address_db');
+
+const User = sequelize.define('User', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+const Address = sequelize.define('Address', {
+  street: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  state: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  zipCode: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+User.hasMany(Address);
+Address.belongsTo(User);
+
+module.exports = {
+  sequelize,
+  User,
+  Address
+};
